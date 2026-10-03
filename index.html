@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuis UKMPPD THT – CA Nasofaring dan CA Laring</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6fb;--card:#fff;--tx:#1b2333;--mu:#64708a;--br:#d8deeb;--pr:#2f5597;--ok:#1e8e4e;--okb:#e4f5ea;--no:#c0392b;--nob:#fbe9e7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10141f;--card:#19202f;--tx:#e8ecf5;--mu:#94a0ba;--br:#2c364c;--pr:#7ea3e6;--okb:#143324;--nob:#3a1d1a;--ok:#56c785;--no:#ef7a6c}}
+:root[data-theme="dark"]{--bg:#10141f;--card:#19202f;--tx:#e8ecf5;--mu:#94a0ba;--br:#2c364c;--pr:#7ea3e6;--okb:#143324;--nob:#3a1d1a;--ok:#56c785;--no:#ef7a6c}
+*{box-sizing:border-box}html,body{margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.w{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:.2rem 0}
+.card{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:18px;margin-top:14px}
+.mu{color:var(--mu);font-size:.9rem}
+.bar{height:6px;background:var(--br);border-radius:9px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--pr);transition:width .3s}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tag{font-size:.75rem;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--pr);color:#fff}
+.q{margin:12px 0;font-size:1.02rem}
+.o{display:flex;gap:10px;width:100%;text-align:left;background:var(--card);color:var(--tx);border:1.5px solid var(--br);border-radius:10px;padding:10px 12px;margin:8px 0;font:inherit;cursor:pointer}
+.o:hover:not(:disabled){border-color:var(--pr)}
+.o b{flex:none;width:24px;height:24px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:.8rem}
+.o.ok{background:var(--okb);border-color:var(--ok)}.o.no{background:var(--nob);border-color:var(--no)}
+.ex{margin-top:12px;padding:12px;border-radius:10px;background:var(--bg);border-left:4px solid var(--pr);font-size:.93rem}
+.btn{background:var(--pr);color:#fff;border:0;border-radius:10px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer;margin-top:14px}
+.btn.g{background:transparent;color:var(--pr);border:1.5px solid var(--pr)}
+.big{font-size:2.6rem;font-weight:800;color:var(--pr)}
+.rv{border-top:1px solid var(--br);padding:10px 0;font-size:.9rem}
+</style></head><body><div class="w" id="app"></div>
+<script>
+// Format: [level, soal, [jawaban BENAR, salah, salah, salah, salah], pembahasan]
+const D=[
+["C1","Karsinoma nasofaring (KNF) merupakan keganasan tersering di bidang THT-KL dengan lokasi predileksi…",["Fossa Rosenmuller","Torus tubarius","Valekula","Fossa piriformis","Tonsil palatina"],"KNF terbanyak berasal dari fossa Rosenmuller dan umumnya terdiagnosis pada stadium lanjut."],
+["C1","Epidemiologi KNF yang benar adalah…",["Laki-laki : perempuan 2–3 : 1, sering dekade 4–5","Perempuan lebih banyak 3 : 1","Terbanyak anak < 10 tahun","Terbanyak lansia > 80 tahun","Tidak berhubungan dengan ras"],"KNF: laki-laki : perempuan 2–3 : 1, sering pada dekade 4–5, frekuensi di Asia cukup tinggi."],
+["C2","Pria 45 tahun suku Tionghoa, suka mengonsumsi ikan asin. Faktor risiko lingkungan yang dimaksud adalah…",["Nitrosodimetilamin (NDMA) pada ikan asin/diasap/dibakar","Aflatoksin pada kacang","Serat berlebih","Vitamin C tinggi","Kafein"],"Faktor lingkungan: nitrosamin (NDMA, NPYR, NPIP) pada ikan asin, diasap, dibakar; asap rokok/pabrik."],
+["C1","Infeksi virus yang berkaitan dengan KNF adalah…",["Epstein-Barr virus (EBV)","HIV","Rhinovirus","Varicella zoster","Adenovirus"],"Infeksi EBV dengan titer IgA/IgG VCA, EBNA, dan anti-EA EBV berperan pada KNF."],
+["C2","Pria 42 tahun dengan telinga berdenging, terasa penuh, dan OME unilateral > 3 minggu. Mekanisme yang mendasari?",["Oklusi tuba Eustachius oleh tumor nasofaring","Infeksi bakteri telinga luar","Trauma akustik","Otosklerosis","Presbikusis"],"Ear sign: tinnitus, telinga tersumbat, OME > 3 minggu akibat oklusi tuba Eustachius; gejala awal penting untuk deteksi dini."],
+["C2","Pria 40 tahun hidung tersumbat, mimisan berulang, dahak bercampur darah, suara sengau. Mekanisme perdarahan pada KNF?",["Tumor rapuh dan mudah berdarah","Alergi","Infeksi jamur","Trauma korek hidung","Kelainan faktor pembekuan"],"Nose sign pada KNF disebabkan sifat tumor yang rapuh dan mudah berdarah; mirip sinusitis/rinitis."],
+["C1","Alasan utama 70–90% pasien KNF datang ke dokter adalah…",["Benjolan di leher (pembesaran KGB level II–III–IV)","Telinga berdenging","Mimisan","Penglihatan ganda","Nyeri kepala"],"Neck sign: benjolan di leher akibat metastasis limfogen menjadi penyebab terbanyak pasien berobat."],
+["C1","Baku emas diagnosis KNF adalah…",["Biopsi dengan pemeriksaan patologi anatomi","Tes serologi IgA anti-VCA","MSCT nasofaring","Rinoskopi posterior","Foto polos kepala"],"Biopsi + PA adalah gold standard; MSCT/MRI dengan kontras dan serologi EBV sebagai penunjang."],
+["C2","Klasifikasi WHO KNF tipe 3 adalah…",["Nonkeratinizing undifferentiated (C)","Keratinizing (A)","Nonkeratinizing differentiated (B)","Adenokarsinoma","Limfoma"],"WHO: tipe 1 keratinizing, tipe 2 nonkeratinizing differentiated, tipe 3 nonkeratinizing undifferentiated."],
+["C3","Pria 45 tahun benjolan leher level II, ptosis kanan, strabismus konvergen, nyeri wajah. Tumor menginfiltrasi struktur apa?",["Foramen laserum dengan keterlibatan CN III, IV, V, VI","Foramen magnum","Kanalis auditorius","Tulang hioid","Sinus frontal"],"Eye sign: infiltrasi ke foramen laserum mengenai CN III (ptosis), IV, VI (strabismus), V (neuralgia trigeminal/parestesi wajah)."],
+["C3","Pasien KNF mengeluh otalgia hebat tanpa kelainan telinga. Saraf yang terinfiltrasi?",["N. glosofaringeus (CN IX)","N. fasialis","N. vagus","N. hipoglosus","N. optikus"],"Otalgia hebat pada KNF akibat infiltrasi n. glosofaringeus (CN IX)."],
+["C3","Pasien KNF sulit membuka mulut. Struktur yang terlibat?",["Otot pterigoid medial","Otot masseter dari tonsil","Kelenjar parotis","Sendi temporomandibular normal","Otot digastrikus"],"Trismus pada KNF akibat keterlibatan otot pterigoideus medial."],
+["C4","Pasien KNF mengalami sinkop mendadak saat menoleh. Mekanisme yang paling mungkin?",["Kompresi mekanis sinus karotis dan iritasi n. glosofaringeus","Hipoglikemia","Aritmia primer","Anemia","Epilepsi"],"Gejala lain KNF: sinkop akibat kompresi mekanis sinus karotis, iritasi n. IX; trismus; metastasis jauh ke tulang, paru, hepar."],
+["C4","Pasien KNF dengan nyeri tulang punggung dan nyeri perut kanan atas. Kemungkinan metastasis jauh ke…",["Vertebra, paru, hepar","Hanya otak","Ginjal saja","Jantung","Usus halus"],"Metastasis jauh KNF terutama tulang (vertebra), paru, dan hepar."],
+["C3","Terapi utama KNF (NCCN 2024) menurut slide adalah…",["Radioterapi eksternal 6000–7500 cGy, dengan atau tanpa kemoterapi","Operasi eksisi luas saja","Antibiotik jangka panjang","Observasi","Hanya terapi hormonal"],"KNF: radioterapi eksternal 6000–7500 cGy, brakiterapi 1000–1500 cGy, kemoterapi 6 siklus dengan jeda 3 minggu."],
+["C4","Faktor yang membuat prognosis KNF cenderung buruk (ad malam) adalah…",["Tumor dekat dasar tengkorak, invasif, gejala awal mirip ISPA, pemeriksaan sulit","Usia muda","Diagnosis dini","Tumor eksofitik kecil","Ras Kaukasia"],"Prognosis dipengaruhi lokasi dekat dasar tengkorak, sifat invasif, gejala awal sulit ditemukan, dan pemeriksaan nasofaring sulit."],
+["C4","Angka harapan hidup 5 tahun KNF stadium IV menurut slide adalah…",["16%","76%","56%","38%","90%"],"5-year survival: stadium I 76%, II 56%, III 38%, IV 16%; semakin dini terdiagnosis semakin baik prognosis."],
+["C1","Karsinoma laring menempati urutan keberapa dari keganasan kepala leher dan rasio laki-laki : perempuan?",["Ketiga; 4 : 1","Pertama; 1 : 1","Kelima; 1 : 4","Kedua; 2 : 1","Keempat; 1 : 1"],"Karsinoma laring urutan ketiga dari keganasan kepala dan leher dengan laki-laki : perempuan 4 : 1; > 40% datang stadium lanjut."],
+["C1","Jenis histopatologi tersering karsinoma laring (LSCC) adalah…",["Karsinoma sel skuamosa","Adenokarsinoma","Limfoma","Sarkoma","Melanoma"],"LSCC (Larynx Squamous Cell Carcinoma) berasal dari sel epitel laring (supraglotik, glotik, subglotik)."],
+["C2","Pria 60 tahun perokok berat, rasa mengganjal, suara seperti makan kentang panas, disfagia, otalgia. Lokasi tumor?",["Supraglotis","Glotis","Subglotis","Nasofaring","Orofaring"],"Tumor supraglotis: rasa mengganjal, hot potato voice/muffle, disfagia, dispnea, otalgia, metastasis servikal."],
+["C2","Pria 62 tahun perokok, serak progresif > 3 minggu tanpa nyeri. Lokasi tumor?",["Glotis","Supraglotis","Subglotis","Hipofaring","Nasofaring"],"Tumor glotis: hoarseness (serak) sebagai gejala dini."],
+["C2","Pria 58 tahun stridor progresif dan sumbatan jalan napas, serak. Lokasi tumor?",["Subglotis","Supraglotis","Nasofaring","Orofaring","Vestibulum nasi"],"Tumor subglotis: sumbatan jalan napas (airway obstruction)."],
+["C2","Pemeriksaan penunjang awal pada dugaan karsinoma laring adalah…",["Laringoskopi indirek/fleksibel endoskopi","Foto toraks saja","Spirometri","Audiometri","Rinoskopi anterior"],"Penunjang: laringoskopi indirek/fleksibel endoskopi, rontgen leher AP/lateral, toraks, CT-scan/MRI laring."],
+["C3","Pria 65 tahun tumor laring, biopsi akan dilakukan. Cara biopsi yang sesuai?",["Direk laringoskopi dengan narkose umum atau fleksibel laringoskopi dengan anestesi lokal","Biopsi aspirasi tulang","Kerokan kulit","Lavage bronkus","Biopsi usus"],"Biopsi laring dapat melalui direk laringoskopi dalam narkose umum atau fleksibel laringoskopi dalam anestesi lokal."],
+["C3","Pada palpasi leher pasien karsinoma laring, pembesaran membran krikotiroid/tirohioid menunjukkan…",["Ekstensi tumor ke ekstralaring","Tumor jinak","Infeksi tonsil","Tiroiditis","Normal"],"Pembesaran membran krikotiroid atau tirohioid adalah tanda ekstensi ekstralaring; infiltrasi ke tiroid membuat tiroid membesar dan keras."],
+["C3","Karsinoma laring stadium I (T1 N0 M0). Terapi utama?",["Radiasi","Laringektomi total","Kemoterapi saja","Observasi","Tirodektomi"],"Stadium I: radiasi; II: laringektomi parsial/total + radiasi; III: laringektomi total + radiasi; IV: pembedahan + ND + radiasi."],
+["C4","Karsinoma laring T3 N0 M0. Stadium dan terapinya?",["Stadium III; laringektomi total + radiasi","Stadium II; radiasi saja","Stadium IVA; kemoterapi saja","Stadium I; observasi","Stadium IVC; paliatif"],"T3 N0 M0 = stadium III; terapi pembedahan (laringektomi total) + radiasi."],
+["C4","Karsinoma laring semua T, semua N, dengan M1. Stadium?",["Stadium IVC","Stadium IVA","Stadium IVB","Stadium III","Stadium II"],"Stadium IVC: semua T semua N M1; IVB: semua T N3 M0 atau T4b."],
+["C4","Karsinoma laring T4a N1 M0 resectable. Terapi yang tepat?",["Pembedahan + diseksi leher + radiasi","Radiasi saja","Observasi","Kemoterapi oral","Antibiotik"],"Stadium IV (IVA: T4a N0/N1 M0) → pembedahan + ND jika resectable + radiasi."],
+["C3","Pada pasien dengan metastasis KGB leher, istilah ENE (extranodal extension) berarti…",["Penyebaran tumor di luar kapsul kelenjar limfe","Metastasis ke paru","Tumor di glotis","Tumor jinak","Kelenjar normal"],"ENE: ekstrakapsular nodal extension, yaitu penyebaran tumor di luar kapsul kelenjar limfe (penentuan N AJCC 8)."]
+];
+const $=id=>document.getElementById(id),app=$('app');
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let Q,i,score,log;
+function start(){Q=sh(D).map(d=>{const o=sh(d[2].map((t,k)=>({t,c:k===0})));return{l:d[0],q:d[1],o,e:d[3]}});i=0;score=0;log=[];show();scrollTo(0,0)}
+function intro(){app.innerHTML=`<h1>Kuis Kasus UKMPPD – CA Nasofaring & Laring</h1><p class="mu">Karsinoma Nasofaring dan Karsinoma Laring.</p><div class="card"><p>30 soal kasus klinis (15 soal C1–C2 dan 15 soal C3–C4), 5 pilihan (A–E). Urutan soal dan pilihan diacak setiap kali kuis dimulai.</p><button class="btn" id="go">Mulai Kuis</button></div>`;$('go').onclick=start}
+function show(){if(i>=Q.length)return end();const q=Q[i];
+app.innerHTML=`<div class="top"><h1>Kuis THT</h1><span class="mu">Soal ${i+1}/${Q.length} · Skor ${score}</span></div><div class="bar"><i style="width:${i/Q.length*100}%"></i></div>
+<div class="card"><span class="tag">${q.l}</span><p class="q">${q.q}</p><div id="os">${q.o.map((o,k)=>`<button class="o" data-k="${k}"><b>${'ABCDE'[k]}</b><span>${o.t}</span></button>`).join('')}</div><div id="fb"></div></div>`;
+document.querySelectorAll('.o').forEach(b=>b.onclick=()=>pick(+b.dataset.k))}
+function pick(k){const q=Q[i],ok=q.o[k].c;if(ok)score++;log.push({q,ok,k});
+document.querySelectorAll('.o').forEach((b,n)=>{b.disabled=true;if(q.o[n].c)b.classList.add('ok');else if(n===k)b.classList.add('no')});
+$('fb').innerHTML=`<div class="ex"><b>${ok?'Benar ✓':'Salah ✗'}</b> — ${q.e}</div><button class="btn" id="nx">${i===Q.length-1?'Lihat Hasil':'Soal Berikutnya'}</button>`;
+$('nx').onclick=()=>{i++;show();scrollTo(0,0)}}
+function end(){const lv=l=>{const a=log.filter(x=>l.includes(x.q.l));return a.filter(x=>x.ok).length+'/'+a.length};
+const wr=log.filter(x=>!x.ok);
+app.innerHTML=`<h1>Hasil Kuis</h1><div class="card"><div class="big">${Math.round(score/Q.length*100)}%</div><p>Benar ${score} dari ${Q.length} soal.</p><p class="mu">C1–C2: ${lv(['C1','C2'])} · C3–C4: ${lv(['C3','C4'])}</p><button class="btn" id="rs">Ulangi (soal diacak ulang)</button></div>
+<div class="card"><b>Pembahasan soal yang salah (${wr.length})</b>${wr.length?wr.map(x=>`<div class="rv"><span class="tag">${x.q.l}</span> ${x.q.q}<br><span style="color:var(--no)">Jawabanmu: ${x.q.o[x.k].t}</span><br><span style="color:var(--ok)">Benar: ${x.q.o.find(o=>o.c).t}</span><br><span class="mu">${x.q.e}</span></div>`).join(''):'<p>Semua jawaban benar. Luar biasa!</p>'}</div>`;
+$('rs').onclick=start;scrollTo(0,0)}
+intro();
+</script></body></html>
